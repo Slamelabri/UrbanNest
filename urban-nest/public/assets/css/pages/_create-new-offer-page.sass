@@ -1,0 +1,37 @@
+#create-new-offer-page, #edit-listing-page
+  padding-top: 5rem
+
+  header
+    padding: 80px $page-margin
+    padding-bottom: 0
+
+  #cno-form
+    display: flex
+    flex-direction: row
+    align-items: start
+    justify-content: space-between
+    padding: 80px $page-margin
+
+    > div:first-child
+      flex: 1
+
+    aside
+      min-width: 150px
+      margin-left: 2rem
+      border-left: 1px solid rgba($color-primary-hover, .1)
+      padding: 50px 25px
+
+@media screen and (max-width: 1570px)
+  #create-new-offer-page, #edit-listing-page
+    #cno-form
+      flex-direction: column-reverse
+
+      aside
+        margin-left: 0
+        border: none
+        padding: 80px 0
+
+@media screen and (max-width: 800px)
+  #create-new-offer-page, #edit-listing-page
+    header, section#cno-form
+      padding: 50px $page-mobile-margin

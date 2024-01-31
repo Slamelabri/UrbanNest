@@ -1,0 +1,116 @@
+body
+  margin: 0
+  padding: 0
+  font-family: $font-default
+  color: $color-primary
+
+hr
+  border: none
+  border-top: 1px solid rgba($color-primary, 0.5)
+
+.btn
+  display: inline-flex
+  flex-display: row
+  align-items: center
+  padding: 12px 32px
+  text-decoration: none
+  border-radius: 8px
+  border: 2px solid $color-primary
+  font-weight: 500
+
+  svg
+    margin-right: 8px
+
+  &-sm
+    svg
+      height: 20px
+
+  &-primary
+    background-color: $color-primary
+    color: $color-white
+    border-color: $color-primary
+
+    svg path
+      stroke: $color-white
+
+  &-secondary
+    background-color: transparent
+    color: $color-primary
+    border-color: $color-primary
+
+    svg path
+      stroke: $color-primary
+
+    &:hover
+      background-color: $color-primary-hover
+      border-color: $color-primary-hover
+
+      svg path
+        stroke: $color-white
+
+  &-blue
+    background-color: $color-primary-hover
+    border-color: $color-primary-hover
+    color: white
+    svg path
+      stroke: $color-white
+    &:hover
+      background-color: $color-primary
+      border-color: $color-primary
+      color: $color-white
+
+  &-danger
+    border-color: #dc3545
+
+  &-white
+    &-primary
+      background-color: $color-white
+      color: $color-primary
+      border-color: $color-white
+      &:hover
+        background-color: $color-primary-hover
+        border-color: $color-primary-hover
+        color: $color-white
+
+    &-secondary
+      background-color: transparent
+      color: $color-white
+      border-color: $color-white
+      &:hover
+        background-color: $color-primary-hover
+        border-color: $color-primary-hover
+        color: $color-white
+
+//Breadcrumb
+.breadcrumb-item
+  font-size: 14px
+  color: rgba($color-primary, .8)
+
+  a
+    text-decoration: none
+    color: rgba($color-primary, .8)
+
+  &.active > span
+    font-weight: 600
+    color: $color-primary
+
+//Alert
+.alert-danger
+  background-color: #FF806C
+  border-color: #FF806C
+  color: $color-white
+
+//Padding
+.header
+  padding: 80px $page-margin
+  margin-top: 5rem
+
+.page-padding
+  padding: 80px $page-margin
+
+@media screen and (max-width: 768px)
+  .header
+    padding: 50px $page-mobile-margin
+
+  .page-padding
+    padding: 50px $page-mobile-margin

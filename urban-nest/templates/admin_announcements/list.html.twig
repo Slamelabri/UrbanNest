@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des annonces{% endblock %}
+{% block pageid %}view-all-listings-page{% endblock %}
+
+{% block body %}
+    <header class="header">
+        <div>
+            <h2>Liste des annonces</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_home') }}">Accueil</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="">Admin</a>
+                </li>
+                <li class="breadcrumb-item">
+                    Annonces
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span>Lister</span>
+                </li>
+            </ol>
+        </div>
+    </header>
+    <main>
+        <section class="page-padding">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Type de transaction</th>
+                        <th>Date de publication</th>
+                        <th>Surface</th>
+                        <th>S.D.B.</th>
+                        <th>Chambres</th>
+                        <th>Prix</th>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for announce in announces %}
+                    <tr>
+                        <td>{{ announce.title }}</td>
+                        <td>
+                            {% if announce.type  == 'sale' %}
+                                Vente
+                            {% elseif announce.type == 'location' %}
+                                Location
+                            {% else %}
+                                {{ announce.type }}
+                            {% endif %}
+                        </td>
+                        <td>{{ announce.publishDate | date('d/m/Y') }}</td>
+                        <td>{{ announce.area }} m2</td>
+                        <td>{{ announce.bathrooms }}</td>
+                        <td>{{ announce.bedrooms }}</td>
+                        <td>{{ announce.price }} €</td>
+                        <td>
+                            <a href="{{ path('app_admin_announcements_candidates', {announce: announce.id}) }}">Candidats</a>
+                            <a href="{{ path('app_admin_announcements_edit', {id:announce.id}) }}">Editer</a>
+                            <a href="{{ path('app_admin_announcements_delete', {id: announce.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+{% endblock %}

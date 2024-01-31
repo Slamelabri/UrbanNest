@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Filtrer les annonces{% endblock %}
+{% block pageid %}offers-search-page{% endblock %}
+
+{% block body %}
+<main>
+    <section>
+        <!--begin::Content-->
+        <div>
+            <div class="filter-title">
+                <h1>Découvrez nos offres en</h1>
+                <div>
+                    <h2></h2>
+                </div>
+            </div>
+            <form id="formFilter">
+                <!--begin::Tabs-->
+                <div>
+                    <div>
+                        <input type="radio" name="filter[project]" id="project_buying" value="buying" checked>
+                        <label for="project_buying">Acheter</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="filter[project]" id="project_location" value="location">
+                        <label for="project_location">Louer</label>
+                    </div>
+                </div>
+                <!--end::Tabs-->
+                <!--begin::Inputs-->
+                <div>
+                    <div>
+                        <select name="filter[type]" class="form-select" id="property_type">
+                            <option value="house">Maison</option>
+                            <option value="appartment">Appartement</option>
+                            <option value="commercial">Local commercial</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="number" name="filter[postalCode]" class="form-control" id="postal_code" placeholder="Code postal">
+                    </div>
+                    <div>
+                        <div>
+                            <select name="filter[city]" id="city" class="form-select">
+                                <option value="">--Sélectionner une ville--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Rechercher</button>
+                    </div>
+                </div>
+                <!--end::Inputs-->
+            </form>
+        </div>
+        <!--end::Content-->
+        <!--begin::Illustration-->
+        <div>
+            <img src="/assets/medias/illustrations/abstract/linear-top-left.png" alt="Illustration de trait">
+            <img src="/assets/medias/illustrations/abstract/linear-geometrical-bottom-no-stars.png" alt="Illustration de trait et forme geometrique">
+        </div>
+        <!--end::Illustration-->
+    </section>
+</main>
+{% endblock %}
+{% block javascripts %}
+    <script src="/assets/js/pages/announcements-filter.js"></script>
+{% endblock %}

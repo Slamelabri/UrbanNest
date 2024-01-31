@@ -1,0 +1,303 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postuler a une offre{% endblock %}
+{% block pageid %}offer-postulat-page{% endblock %}
+
+{% block body %}
+    <main>
+        <header>
+            <div>
+                <h1>Postuler a une offre</h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('app_home') }}">Accueil</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        Annonces
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#">
+                            {{ announce.title }}
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <span>Postuler</span>
+                    </li>
+                </ol>
+            </div>
+            {# begin::Caroussel #}
+            <div id="carouselExampleIndicators" class="carousel slide">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    {% for picture in announce.pictures %}
+                    <div class="carousel-item active">
+                        <img src="{{ picture.pictureUrl }}" class="d-block w-100" alt="Photo du bien">
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            {# end::Carousseln #}
+        </header>
+        <section id="op-form">
+            <div>
+                <form action="{{ path('app_announcements_postule', { id: announce.id }) }}" enctype="multipart/form-data" method="POST">
+                    {# Informations personnels #}
+                    <div class="stepper-container step-first" id="stepper-postule">
+                        <div class="stepper mb-5">
+                            <div class="visible" data-stepper-index="0">
+                                <div class="mb-5">
+                                    <h3>Coordonnées personnelles</h3>
+                                    <p>Renseignez vos informations de contact pour que nous puissions vous recontacter facilement.</p>
+                                </div>
+                                <div>
+                                    <div class="row mb-4">
+                                        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                                            <label for="postule_client_surname" class="form-label">Nom</label>
+                                            <input type="text" class="form-control" disabled name="postule[client][surname]" id="postule_client_surname" placeholder="DOE" value="{{ client.surname }}">
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label for="postule_client_firstname" class="form-label">Prenom</label>
+                                            <input type="text" class="form-control" name="postule[client][firstname]" disabled id="postule_client_firstname" placeholder="John" value="{{ client.firstname }}">
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="postule_client_email" class="form-label">Adresse e-mail</label>
+                                        <input type="email" id="postule_client_email" name="postule[client][email]" disabled class="form-control" placeholder="johndoe@example.com" value="{{ client.email }}">
+                                    </div>
+                                    <div>
+                                        <label for="postule_client_phone" class="form-label required">Numero de telephone</label>
+                                        <input type="tel" id="postule_client_phone" required name="postule[client][phone]" class="form-control" placeholder="0123456789" value="{{ client.phone }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-stepper-index="1">
+                                <div class="mb-5">
+                                    <h3>Adresse</h3>
+                                    <p>Indiquez votre adresse actuelle pour nous permettre de mieux cerner vos préférences géographiques.</p>
+                                </div>
+                                <div>
+                                    <div class="mb-4">
+                                        <label for="postule_client_adress" class="form-label required">Adresse</label>
+                                        <input type="text" name="postule[client][adress]" required id="postule_client_adress" placeholder="1 rue voltaire" class="form-control" value="{{ client.adress }}">
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-12 col-lg-2 mb-4 mb-lg-0">
+                                            <label for="postule_client_postalecode" class="form-label required">Code Postal</label>
+                                            <input type="number" id="postule_client_postalecode" required name="postule[client][postalCode]" placeholder="69001" class="form-control" value="{{ client.postalCode }}">
+                                        </div>
+                                        <div class="col-12 col-lg-10">
+                                            <label for="postule_client_city" class="form-label required">Ville</label>
+                                            <input type="text" id="postule_client_city" required name="postule[client][city]" placeholder="Lyon" class="form-control" value="{{ client.city }}">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="postule_client_state" class="form-label required">Pays</label>
+                                        <select name="postule[client][state]" required id="postule_client_state" class="form-select">
+                                            <option value="Allemagne">Allemagne</option>
+                                            <option value="Autriche">Autriche</option>
+                                            <option value="Belgique">Belgique</option>
+                                            <option value="Bulgarie">Bulgarie</option>
+                                            <option value="Chypre">Chypre</option>
+                                            <option value="Croatie">Croatie</option>
+                                            <option value="Danemark">Danemark</option>
+                                            <option value="Espagne">Espagne</option>
+                                            <option value="Estonie">Estonie</option>
+                                            <option value="Finlande">Finlande</option>
+                                            <option value="France" selected>France</option>
+                                            <option value="Grèce">Grèce</option>
+                                            <option value="Hongrie">Hongrie</option>
+                                            <option value="Irlande">Irlande</option>
+                                            <option value="Italie">Italie</option>
+                                            <option value="Lettonie">Lettonie</option>
+                                            <option value="Lituanie">Lituanie</option>
+                                            <option value="Luxembourg">Luxembourg</option>
+                                            <option value="Malte">Malte</option>
+                                            <option value="Pays-Bas">Pays-Bas</option>
+                                            <option value="Pologne">Pologne</option>
+                                            <option value="Portugal">Portugal</option>
+                                            <option value="République tchèque">République tchèque</option>
+                                            <option value="Roumanie">Roumanie</option>
+                                            <option value="Slovaquie">Slovaquie</option>
+                                            <option value="Slovénie">Slovénie</option>
+                                            <option value="Suède">Suède</option>
+                                            <option value="États-Unis">États-Unis</option>
+                                            <option value="Royaume-Uni">Royaume-Uni</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-stepper-index="2">
+                                <div class="mb-5">
+                                    <h3>Documents joints</h3>
+                                    <p>Téléversez les documents nécessaires pour compléter votre candidature. Assurez-vous qu'ils soient pertinents pour votre demande.</p>
+                                </div>
+                                <div>
+                                    {# Piece d'idendite #}
+                                    <div class="mb-4">
+                                        <h4>Pièce d'identité</h4>
+                                        <p>Veuillez joindre une copie de votre pièce d'identité en cours de validité. Ce document est nécessaire pour vérifier votre identité et valider votre candidature.</p>
+                                        <div class="form-file">
+                                            <label for="postule_files_identity">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10V13" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10H18C15 10 14 9 14 6V2L22 10Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M13.7601 18.2601C11.4101 18.4301 11.4101 21.8301 13.7601 22.0001H19.3201C19.9901 22.0001 20.6501 21.7501 21.1401 21.3001C22.7901 19.8601 21.9101 16.9801 19.7401 16.7101C18.9601 12.0201 12.1801 13.8001 13.7801 18.2701" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span class="label">Veuillez importer un document</span>
+                                                <span class="filename">Aucun fichier importee</span>
+                                                <span class="btn btn-sm btn-primary mt-4">Choisir un fichier</span>
+                                            </label>
+                                            <input type="file" name="files[identity]" id="postule_files_identity" accept="application/pdf,.pdf,.docx,.odt,application/msword">
+                                        </div>
+                                    </div>
+                                    {# Preuve de revenue #}
+                                    <div class="mb-4">
+                                        <h4>Preuve de revenue</h4>
+                                        <p>Merci de fournir des fiches de paie ou un avis d'imposition récent pour justifier de vos revenus. Cela permet de vérifier votre capacité financière à assumer le paiement du loyer ou de l'achat.</p>
+                                        <div class="form-file">
+                                            <label for="postule_files_revenue">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10V13" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10H18C15 10 14 9 14 6V2L22 10Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M13.7601 18.2601C11.4101 18.4301 11.4101 21.8301 13.7601 22.0001H19.3201C19.9901 22.0001 20.6501 21.7501 21.1401 21.3001C22.7901 19.8601 21.9101 16.9801 19.7401 16.7101C18.9601 12.0201 12.1801 13.8001 13.7801 18.2701" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span class="label">Veuillez importer un document</span>
+                                                <span class="filename">Aucun fichier importee</span>
+                                                <span class="btn btn-sm btn-primary mt-4">Choisir un fichier</span>
+                                            </label>
+                                            <input type="file" name="files[revenue]" id="postule_files_revenue" accept="application/pdf,.pdf,.docx,.odt,application/msword">
+                                        </div>
+                                    </div>
+                                    {# Contrat de travail #}
+                                    <div class="mb-4">
+                                        <h4>Contrat de travail</h4>
+                                        <p>Veuillez télécharger votre contrat de travail actuel. Cela confirme votre emploi actuel et vos revenus.</p>
+                                        <div class="form-file">
+                                            <label for="postule_files_work">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10V13" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10H18C15 10 14 9 14 6V2L22 10Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M13.7601 18.2601C11.4101 18.4301 11.4101 21.8301 13.7601 22.0001H19.3201C19.9901 22.0001 20.6501 21.7501 21.1401 21.3001C22.7901 19.8601 21.9101 16.9801 19.7401 16.7101C18.9601 12.0201 12.1801 13.8001 13.7801 18.2701" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span class="label">Veuillez importer un document</span>
+                                                <span class="filename">Aucun fichier importee</span>
+                                                <span class="btn btn-sm btn-primary mt-4">Choisir un fichier</span>
+                                            </label>
+                                            <input type="file" name="files[work]" id="postule_files_work" accept="application/pdf,.pdf,.docx,.odt,application/msword">
+                                        </div>
+                                    </div>
+                                    {# Lettre de recommandation #}
+                                    <div class="mb-4">
+                                        <h4>Lettre de recommandation</h4>
+                                        <p>Joignez une lettre de recommandation de votre précédent propriétaire ou gestionnaire immobilier. Cela témoigne de votre comportement en tant que locataire précédent.</p>
+                                        <div class="form-file">
+                                            <label for="postule_files_recommandation">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10V13" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10H18C15 10 14 9 14 6V2L22 10Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M13.7601 18.2601C11.4101 18.4301 11.4101 21.8301 13.7601 22.0001H19.3201C19.9901 22.0001 20.6501 21.7501 21.1401 21.3001C22.7901 19.8601 21.9101 16.9801 19.7401 16.7101C18.9601 12.0201 12.1801 13.8001 13.7801 18.2701" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span class="label">Veuillez importer un document</span>
+                                                <span class="filename">Aucun fichier importee</span>
+                                                <span class="btn btn-sm btn-primary mt-4">Choisir un fichier</span>
+                                            </label>
+                                            <input type="file" name="files[recommandation]" id="postule_files_recommandation" accept="application/pdf,.pdf,.docx,.odt,application/msword">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-stepper-index="3">
+                                <div class="mb-5">
+                                    <h3>Commentaire</h3>
+                                    <p>Ajoutez des informations complémentaires utiles pour votre candidature.</p>
+                                </div>
+                                <div>
+                                    <div class="mb-3">
+                                        <p class="form-help">Votre commentaire est une opportunité supplémentaire de mettre en valeur votre candidature. En partageant des détails spécifiques, des explications complémentaires ou des informations pertinentes, vous pouvez enrichir votre dossier et offrir une perspective plus complète à votre demande. Profitez de cet espace pour exprimer des détails non couverts dans les champs précédents, ce qui pourrait renforcer votre candidature. <b>(Facultatif)</b></p>
+                                    </div>
+                                    <div>
+                                        <label for="postule_client_commentaire" class="form-label">Commentaire</label>
+                                        <textarea class="form-control" id="postule_client_commentaire" name="postule[client][commentaire]"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stepper-nav-btns">
+                            {# Col left #}
+                            <div>
+                                <button class="btn btn-secondary stepper-not-first" role="button" data-stepper-action="before">Precedent</button>
+                            </div>
+                            {# Col right #}
+                            <div>
+                                <button class="btn btn-primary stepper-not-end" role="button" data-stepper-action="next">
+                                    Suivant
+                                </button>
+                                <button class="btn btn-blue stepper-end" role="button" data-stepper-action="send">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2 8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5H7" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M2 16.5H8" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M2 12.5H5" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Postuler
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {# Recap du bien #}
+            <aside>
+                <div id="stepper-postule-nav" class="stepper-nav-vertical stepper-nav" data-stepper-dest="stepper-postule">
+                    <ul>
+                        <li>
+                            <button data-stepper-goto="0" data-stepper-dest="stepper-postule" class="active">
+                                <span>1</span>
+                                Informations Personnelles
+                            </button>
+                        </li>
+                        <li>
+                            <button data-stepper-goto="1" data-stepper-dest="stepper-postule">
+                                <span>2</span>
+                                Adresse
+                            </button>
+                        </li>
+                        <li>
+                            <button data-stepper-goto="2" data-stepper-dest="stepper-postule">
+                                <span>3</span>
+                                Documents à Joindre
+                            </button>
+                        </li>
+                        <li>
+                            <button data-stepper-goto="3" data-stepper-dest="stepper-postule">
+                                <span>4</span>
+                                Commentaire
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+    </main>
+{% endblock %}
+{% block javascripts %}
+    <script src="/assets/js/modules/form/file-input.js"></script>
+    <script src="/assets/js/modules/form/stepper.js"></script>
+{% endblock %}

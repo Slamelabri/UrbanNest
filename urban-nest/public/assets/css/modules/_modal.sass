@@ -1,0 +1,35 @@
+.un-modal
+  position: fixed
+  inset: 0
+  z-index: 10000
+  background-color: $color-white
+  padding: 80px $page-margin
+  overflow: auto
+
+  &-header
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 2rem
+
+  &:not(.un-modal-open)
+    display: none
+
+  &-btn
+    &-close
+      background-color: transparent
+      border: none
+
+      svg
+        height: 32px
+        width: 32px
+
+        path
+          stroke: $color-primary
+      &:hover svg path
+        stroke: $color-primary-hover
+
+@media screen and (max-width: 720px)
+  .un-modal
+    padding: 80px $page-mobile-margin

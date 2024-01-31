@@ -1,0 +1,297 @@
+
+//GENERAL PADDING FOR THIS PAGE
+  
+.offer-details-page
+  overflow: hidden
+
+
+
+
+
+
+
+
+
+
+//CAROUSEL
+#carousel
+  position: relative
+  overflow: hidden
+  width: 100%
+  padding-top: 2vh 
+  padding-bottom: 2vh
+  background: #DDEEFA
+ 
+
+.guy.guy  
+  padding: 0
+  display: block
+  border-radius: 8px
+  z-index: 2
+  
+
+.carousel-control-prev, .carousel-control-next
+  z-index: 2
+
+.carousel-inner
+  display: block
+  align-items: flex-start
+  justify-content: center
+  z-index: 2
+
+.carousel-item
+  width: 100%
+  height: 600px
+
+  img
+    max-width: 100%
+    max-height: 100%
+    object-fit: contain
+    background: transparent
+    border-radius: 1%
+
+    &,
+    .item,
+    .active
+      height: 100%
+      z-index: 2
+      .carousel-inner
+        height: 100%
+
+        .fill
+          width: 100%
+          height: 100%
+          background-position: center
+          background-size: cover
+
+
+
+
+#description-card
+  padding: 5vh
+  background: #DDEEFA
+  
+  .container
+    background: #FDFDFD
+
+    .property-details
+      padding: 2vh 2vw
+
+      @media (max-width: 480px)
+        display: flex
+        flex-direction: column
+
+      .info,
+      .details,
+      .others
+        @media (max-width: 600px)
+          align-self: flex-start
+          display: flex
+          flex-direction: column
+
+.info
+  h3
+    font-size: 30px
+    color: #272727
+    margin-bottom: 8px
+
+    span
+      background: #fb1d51
+      color: #ffffff
+      border-radius: 4px
+      text-transform: uppercase
+      font-size: 9px
+
+  p
+    color: #727272
+    font-weight: 400
+    font-family: 'Lato', sans-serif
+    margin: 0
+    font-size: 14px
+
+p
+  span
+    font-weight: 700
+    color: $color-primary 
+    line-height: 1.5
+    font-size: 15px
+
+.col-lg-4:nth-child(2),
+.col-lg-4:nth-child(3)
+  .details
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-between
+
+    @media (max-width: 480px)
+      align-items: flex-start
+
+    .details-listing
+      display: flex
+      align-items: center
+      justify-content: space
+
+      i
+        margin-right: 8px
+
+      p
+        color: #727272
+        font-weight: 400
+        font-family: 'Lato', sans-serif
+        margin: 0
+        font-size: 14px
+
+      h5
+        margin: 1vh 1vw
+        font-size: 20px
+
+.col-lg-4:last-child
+  .others
+    margin-top: 34px
+
+    ul
+      list-style: outside none none
+      margin: 0
+      padding: 0
+
+      li
+        float: right
+        margin-left: 20px
+
+        a
+          height: 40px
+          width: 40px
+          font-size: 16px
+          line-height: 42px
+          text-align: center
+          color: #ffffff
+          border-radius: 4px
+          display: inline-block
+
+    li span
+      color: #272727
+      font-size: 36px
+      line-height: 36px
+      margin-top: 5px
+
+.heart
+  background: #769CCD
+  &:hover
+    background-color: darken(#f60035, 10%)
+
+.bookmark
+  background: #769CCD
+  &:hover
+    background-color: darken(#ffd900, 10%)
+
+
+
+
+// ABOUT SECTION AND IMAGE (RIGHT PAT)
+
+#about 
+  padding: none
+  background: #DDEEFA
+
+.about-ct
+  background: white
+
+.about-content 
+  padding-top: 100px
+
+.single-about-txt h3 
+  font-size: 18px
+  color: #3c4258
+  text-transform: initial
+  line-height: 1.8
+
+.single-about-txt p 
+  font-size: 16px
+  color: #999fb3
+  padding: 35px 0 43px
+  border-bottom: 1px solid #999fb3
+
+.single-about-add-info 
+  margin: 35px 0
+
+.single-about-add-info h3 
+  color: #636a82
+  font-size: 16px
+  text-transform: capitalize
+
+.single-about-add-info p 
+  font-weight: 300
+  border: 0
+  padding: 0
+  margin-top: 3px
+
+.single-about-img
+  position: relative
+  box-shadow: 0 0px 30px rgba(0, 0, 0, 0.3)
+  
+@media (max-width: 480px)
+  .single-about-img img 
+    display: none
+
+@media (max-width: 600px)
+  .single-about-img img 
+    max-width: 400px
+    height: auto
+
+
+
+
+  // CONTACT INFORMATION
+#contact
+  background: #DDEEFA
+  padding: 5vw 5vh
+
+.contact-btn
+  padding: 1vh 1vw
+
+@media (max-width: 768px)
+.contact-btn
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+
+
+
+
+
+// picture gallery
+.gallery-resume
+  padding-top: 10vh
+  padding-bottom: 10vh
+
+  .gallery-title
+    padding: 3vh 1vw 3vh 1vw
+
+  .gallery-picture
+    margin-bottom: 30px
+    overflow: hidden
+    position: relative
+
+    .content 
+      max-width: 100%
+      margin: auto
+
+      @media (max-width: 414px) 
+        font-size: 10px
+
+      .content-image 
+        width: 100%
+        transition: transform 0.3s ease-in-out
+
+      .content-details p 
+        color: #fff
+        font-size: 0.8em
+
+      .fadeIn-bottom 
+        top: 80%
+
+    &:hover
+      .content-image
+        transform: scale(1.1) 

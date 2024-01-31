@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des candidats{% endblock %}
+{% block pageid %}view-applicants-page{% endblock %}
+
+{% block body %}
+    <header class="header">
+        <div>
+            <h2>Liste des candidats</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_home') }}">Accueil</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="">Admin</a>
+                </li>
+                <li class="breadcrumb-item">
+                    Annonces
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span>Candidats</span>
+                </li>
+            </ol>
+        </div>
+    </header>
+    <main>
+        <section class="page-padding">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Nom / Prenom</th>
+                    <th>Email</th>
+                    <th>Telephone</th>
+                    <th>Adresse</th>
+                    <th>Code Postal</th>
+                    <th>Ville</th>
+                    <th>Annonce</th>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for candidat in candidates %}
+                    <tr>
+                        <td>{{ candidat.user.surName }} {{ candidat.user.firstName }}</td>
+                        <td>{{ candidat.user.email }}</td>
+                        <td>{{ candidat.user.phone }}</td>
+                        <td>{{ candidat.user.adress }}</td>
+                        <td>{{ candidat.user.postalCode }}</td>
+                        <td>{{ candidat.user.city }}</td>
+                        <td>{{ candidat.announce.title }}</td>
+                        <td>
+                            <a href="{{ path('app_admin_announcements_candidates_consult', {id:candidat.id}) }}">Consulter</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+{% endblock %}

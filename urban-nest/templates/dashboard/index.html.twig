@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block pageid %}dashboard-page{% endblock %}
+
+{% block body %}
+<header>
+    <div>
+        <h2>Hello, {{ app.user.surname }} {{ app.user.firstname }}</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span>Dashboard</span>
+            </li>
+        </ol>
+    </div>
+    <div class="dashboard-recap">
+        {% for recap in recaps %}
+        <div>
+            <h3>{{ recap.title }}</h3>
+            <p>{{ recap.value }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</header>
+{% endblock %}

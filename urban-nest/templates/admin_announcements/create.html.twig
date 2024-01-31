@@ -1,0 +1,226 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'une nouvelle annonce{% endblock %}
+{% block pageid %}create-new-offer-page{% endblock %}
+
+{% block body %}
+    <header>
+        <div>
+            <h2>Création d'une nouvelle annonce</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_home') }}">Accueil</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="">Admin</a>
+                </li>
+                <li class="breadcrumb-item">
+                    Annonces
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span>Création</span>
+                </li>
+            </ol>
+        </div>
+    </header>
+    <main>
+        <section id="cno-form">
+            <div>
+                <form action="{{ path('app_admin_announcements_create') }}" method="POST" enctype="multipart/form-data">
+                    <div class="stepper-container step-first" id="stepper-postule">
+                        <div class="stepper">
+                            <div class="mb-5 visible" data-stepper-index="0">
+                                <div class="mb-5">
+                                    <h3>Informations de base</h3>
+                                </div>
+                                <div>
+                                    <div class="mb-4">
+                                        <label for="announce_title" class="form-label required">Titre</label>
+                                        <input type="text" class="form-control" id="announce_title" name="announce[title]" required placeholder="Maison de 50m2 dans Lyon">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="announce_description" class="form-label required">Description</label>
+                                        <textarea name="announce[description]" id="announce_description" rows="8" required class="form-control"></textarea>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="announce_property_type" class="form-label required">Type de bien</label>
+                                        <select name="announce[property][type]" id="" class="form-select">
+                                            <option value="appartment">Appartement</option>
+                                            <option value="house">Maison</option>
+                                            <option value="commercial">Local commercial</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="announce_property_area" class="form-label required">Surface au sol</label>
+                                        <input type="number" class="form-control" required placeholder="120" id="announce_property_area" name="announce[property][area]">
+                                        <p class="form-help mt-1">La surface est exprimee en m2</p>
+                                    </div>
+                                    <div class="mb-4 row">
+                                        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+                                            <label for="announce_property_bathrooms" class="form-label required">Nombre de S.D.B.</label>
+                                            <input type="number" id="announce_property_bathrooms" name="announce[property][bathrooms]" required class="form-control">
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <label for="announce_property_bedrooms" class="form-label required">Nombre de Chambres</label>
+                                            <input type="number" id="announce_property_bedrooms" name="announce[property][bedrooms]" required class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-5" data-stepper-index="1">
+                                <div class="mb-5">
+                                    <h3>Localisation du bien</h3>
+                                </div>
+                                <div>
+                                    <div class="mb-4">
+                                        <label for="announce_localisation_adress" class="form-label required">Adresse</label>
+                                        <input type="text" id="announce_localisation_adress" name="announce[localisation][adress]" required class="form-control" placeholder="1 rue jean moulin">
+                                    </div>
+                                    <div class="mb-4 row">
+                                        <div class="col-4">
+                                            <label for="announce_localisation_postalCode" class="form-label required">Code postal</label>
+                                            <input type="number" class="form-control" id="announce_localisation_postalCode" name="announce[localisation][postalCode]" required placeholder="69001">
+                                        </div>
+                                        <div class="col-8">
+                                            <label for="announce_localisation_city" class="form-label required">Ville</label>
+                                            <select name="announce[localisation][city]" required id="announce_localisation_city" class="form-select">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-5" data-stepper-index="2">
+                                <div class="mb-5">
+                                    <h3>Tarification</h3>
+                                </div>
+                                <div>
+                                    <div class="mb-4">
+                                        <label for="announce_transaction_type" class="form-label required">Type de transaction</label>
+                                        <select name="announce[transaction][type]" id="announce_transaction_type" class="form-select">
+                                            <option value="sale">Vente</option>
+                                            <option value="location">Location</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="form_price_area" class="form-label">Prix du m2</label>
+                                        <input type="number" id="form_price_area" placeholder="100" class="form-control">
+                                    </div>
+                                    <div class="mb-4">
+                                        <p>Prix minimum conseillee : <span id="priceMini"></span> €</p>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="announce_transaction_price" class="form-label required">Montant</label>
+                                        <input type="number" class="form-control" id="announce_transaction_price" name="announce[transaction][price]" required placeholder="150">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-5" data-stepper-index="3">
+                                <div class="mb-5">
+                                    <h3>Photos du biens</h3>
+                                </div>
+                                <div>
+                                    <div class="mb-4">
+                                        <h4>Image principale de l'annonce</h4>
+                                        <p>Cette image sera la représentation principale de votre annonce. Elle sera affichée en première sur la page de l'annonce et dans les cartes de présentation.</p>
+                                        <div class="form-file">
+                                            <label for="pictures_default">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10V13" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10H18C15 10 14 9 14 6V2L22 10Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M13.7601 18.2601C11.4101 18.4301 11.4101 21.8301 13.7601 22.0001H19.3201C19.9901 22.0001 20.6501 21.7501 21.1401 21.3001C22.7901 19.8601 21.9101 16.9801 19.7401 16.7101C18.9601 12.0201 12.1801 13.8001 13.7801 18.2701" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span class="label">Veuillez importer une photo</span>
+                                                <span class="filename">Aucun fichier importee</span>
+                                                <span class="btn btn-sm btn-primary mt-4">Choisir un fichier</span>
+                                            </label>
+                                            <input type="file" name="pictures[default]" id="pictures_default" accept="image/png,image/jpeg">
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h4>Images additionnelles</h4>
+                                        <p>Ajoutez ici des images supplémentaires pour présenter votre bien. Ces images apparaîtront dans un carrousel sur la page de l'annonce, permettant aux utilisateurs de visualiser plus en détail le bien proposé.</p>
+                                        <div class="form-file">
+                                            <label for="pictures_addin">
+                                                <span class="badge bg-primary">Multiple</span>
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10V13" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 10H18C15 10 14 9 14 6V2L22 10Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M13.7601 18.2601C11.4101 18.4301 11.4101 21.8301 13.7601 22.0001H19.3201C19.9901 22.0001 20.6501 21.7501 21.1401 21.3001C22.7901 19.8601 21.9101 16.9801 19.7401 16.7101C18.9601 12.0201 12.1801 13.8001 13.7801 18.2701" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span class="label">Veuillez importer une ou des photo(s)</span>
+                                                <span class="files">
+                                                    Aucun fichier(s) importee
+                                                </span>
+                                                <span class="btn btn-sm btn-primary mt-4">Choisir des fichiers</span>
+                                            </label>
+                                            <input type="file" multiple name="pictures[addin][]" id="pictures_addin" accept="image/png,image/jpeg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stepper-nav-btns">
+                            {# Col left #}
+                            <div>
+                                <button class="btn btn-secondary stepper-not-first" role="button" data-stepper-action="before">Precedent</button>
+                            </div>
+                            {# Col right #}
+                            <div>
+                                <button class="btn btn-primary stepper-not-end" role="button" data-stepper-action="next">
+                                    Suivant
+                                </button>
+                                <button class="btn btn-blue stepper-end" role="button" data-stepper-action="send">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2 8.5C2 5 4 3.5 7 3.5H17C20 3.5 22 5 22 8.5V15.5C22 19 20 20.5 17 20.5H7" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M17 9L13.87 11.5C12.84 12.32 11.15 12.32 10.12 11.5L7 9" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M2 16.5H8" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M2 12.5H5" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    Valider
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <aside id="stepper-postule-nav" class="stepper-nav-vertical stepper-nav" data-stepper-dest="stepper-postule">
+                    <ul>
+                        <li>
+                            <button data-stepper-goto="0" data-stepper-dest="stepper-postule" class="active">
+                                <span>1</span>
+                                Informations de base
+                            </button>
+                        </li>
+                        <li>
+                            <button data-stepper-goto="1" data-stepper-dest="stepper-postule">
+                                <span>2</span>
+                                Localisation
+                            </button>
+                        </li>
+                        <li>
+                            <button data-stepper-goto="2" data-stepper-dest="stepper-postule">
+                                <span>3</span>
+                                Tarification
+                            </button>
+                        </li>
+                        <li>
+                            <button data-stepper-goto="3" data-stepper-dest="stepper-postule">
+                                <span>4</span>
+                                Importer des Photos
+                            </button>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+{% block javascripts %}
+    <script src="/assets/js/modules/form/stepper.js"></script>
+    <script src="/assets/js/modules/form/file-input.js"></script>
+    <script src="/assets/js/pages/create-new-offer-page.js"></script>
+{% endblock %}

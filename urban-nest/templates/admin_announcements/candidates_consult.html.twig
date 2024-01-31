@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidat{% endblock %}
+{% block pageid %}view-applicants-page{% endblock %}
+
+{% block body %}
+    <header class="header">
+        <div>
+            <h2>Candidature</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('app_home') }}">Accueil</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="">Admin</a>
+                </li>
+                <li class="breadcrumb-item">
+                    Annonces
+                </li>
+                <li class="breadcrumb-item">
+                    {{ candidat.announce.title }}
+                </li>
+                <li class="breadcrumb-item">
+                    Candidats
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span>{{ candidat.user.surName }} {{ candidat.user.firstName }}</span>
+                </li>
+            </ol>
+        </div>
+    </header>
+    <main>
+        <section class="page-padding">
+            <div>
+                <h3>{{ candidat.user.surName }} {{ candidat.user.firstName }}</h3>
+                <p>{{ candidat.user.adress }}</p>
+                <p>{{ candidat.user.postalCode }} {{ candidat.user.city }}</p>
+                <p>
+                    <a href="tel:{{ candidat.user.phone }}">{{ candidat.user.phone }}</a>
+                </p>
+                <p>
+                    <a href="mailto:{{ candidat.user.email }}">{{ candidat.user.email }}</a>
+                </p>
+            </div>
+            <div>
+                <a href="{{ path('app_offerseedetails', {id:candidat.announce.id}) }}" class="btn btn-primary" target="_blank">Voir l'annonce</a>
+            </div>
+        </section>
+        <section class="page-padding">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Nom du document</th>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for doc in candidat.documents %}
+                    <td>{{ doc.documentName }}</td>
+                    <td>
+                        <a href="{{ doc.documentUrl }}" target="_blank">Consulter</a>
+                    </td>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+{% endblock %}

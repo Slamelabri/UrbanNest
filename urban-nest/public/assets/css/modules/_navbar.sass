@@ -1,0 +1,299 @@
+nav
+  position: fixed
+  z-index: 1000
+  top: 0
+  left: 0
+  right: 0
+  height: 5rem
+  background-color: $color-primary
+  padding-left: $page-margin
+  padding-right: $page-margin
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: space-between
+  z-index: 1000
+
+  //Logo Container
+  > div:first-child
+    img
+      height: 2rem
+
+  //Contenu
+  > div:nth-child(2)
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    height: 100%
+    width: 100%
+
+    //Liens
+    > div:first-child
+      > ul
+        display: flex
+        flex-direction: row
+        align-items: center
+        list-style-type: none
+        height: 100%
+        margin: 0
+
+        > li:not(:last-child)
+          margin-right: 16px
+
+        li, a
+          color: $color-white
+          height: 100%
+          margin: 0
+          display: flex
+          flex-direction: row
+          justify-content: space-between
+          align-items: center
+
+        a
+          text-decoration: none
+          cursor: pointer
+
+        .submenu-container
+          a svg
+            margin-left: 8px
+
+    //Bouttons et Rechercher
+    > div:last-child
+      display: flex
+      flex-direction: row
+      align-items: center
+
+      .input-search
+        display: flex
+        flex-direction: row
+        align-items: center
+        background-color: rgba($color-white, .1)
+        padding: 12px 24px
+        margin-right: 24px
+        border-radius: 8px
+
+        svg
+          height: 24px
+          width: 24px
+          margin-right: 16px
+
+          path
+            stroke: $color-white
+
+        input
+          background-color: transparent
+          border: none
+          font-family: $font-default
+          font-size: 16px
+          font-weight: 500
+          color: $color-white
+          outline: none
+          height: 100%
+          width: 100%
+
+
+  //Button Nav Toggle
+  > div:last-child
+    display: none
+
+    button
+      background-color: transparent
+      border: none
+
+@media screen and (min-width: 1600px)
+  nav
+    //Content
+    > div:nth-child(2)
+      //liens
+      > div:first-child
+        height: 100%
+        margin-right: 32px
+      ul
+        .submenu-container
+          position: relative
+
+          a svg
+            path
+              stroke: $color-white
+
+          &:not(:hover)
+            ul
+              opacity: 0
+              visibility: hidden
+
+          ul
+            position: absolute
+            top: 100%
+            background-color: $color-white
+            color: $color-primary
+            box-shadow: 0px 10px 25px 1px rgba($color-primary, 0.1)
+            padding: 0
+            margin: 0
+            border-radius: 8px
+            border-top-left-radius: 0
+            padding: 8px
+            transition: all .25s ease
+
+            li, a
+              color: $color-primary
+
+            a
+              display: block
+              padding: 10px 24px
+              transition: all .25s ease
+              font-size: 14px
+              border-radius: 6px
+
+              &:hover
+                background-color: rgba($color-primary-hover, .1)
+
+@media screen and (max-width: 1600px)
+  nav:not(.nav-open)
+    //Content
+    > div:nth-child(2)
+      //Liens
+      > div:first-child
+        opacity: 0
+        visibility: hidden
+  nav
+    //Content
+    > div:nth-child(2)
+
+      //Liens
+      > div:first-child
+        position: fixed
+        inset: 0
+        top: 5rem
+        padding: 80px $page-margin
+        overflow: auto
+        background-color: $color-white
+
+        ul
+          flex-direction: column
+          justify-content: start
+          align-items: start
+          padding: 0
+
+          a
+            padding: 12px 0
+
+          li, a
+            color: $color-primary
+            height: auto
+            font-size: 32px
+            font-weight: 400
+
+          .submenu-container
+            flex-direction: column
+            align-items: start
+
+            ul
+              li, a
+                font-size: 16px
+
+            a svg
+              path
+                stroke: $color-primary
+                stroke-width: 2
+
+            &:not(.submenu-open) ul
+              display: none
+
+      // Barre de recherche et buttons
+      > div:last-child
+        width: 100%
+        justify-content: center
+
+
+    //Button Nav Toggle
+    > div:last-child
+      display: block
+
+      svg
+        path
+          stroke: $color-white
+
+
+//Mini Tablette
+@media screen and (max-width: 1350px)
+  nav:not(.nav-open)
+    //Barre de recherche
+    > div:nth-child(2) > div:last-child > div:first-child
+      display: none
+
+  nav
+    //Content
+    > div:nth-child(2)
+      //Liens
+      > div:first-child
+        padding: 0 $page-margin
+        top: calc(5rem + 8rem)
+        background-color: $color-white
+
+      //Barre de recherche et bouttons
+      > div:last-child
+
+        //Barre de recherche
+        > div:first-child
+          position: fixed
+          display: flex
+          flex-direction: column
+          justify-content: center
+          inset: 0
+          top: 5rem
+          height: 8rem
+          bottom: auto
+          background-color: $color-white
+          padding: 0 $page-margin
+
+          .input-search
+            background-color: rgba($color-primary-hover, .1)
+
+            svg path
+              stroke: $color-primary
+
+            input
+              color: $color-primary
+
+
+//Petit écrans
+@media screen and (max-width: 830px)
+  nav:not(.nav-open)
+    //Content
+    > div:nth-child(2)
+      //Bouttons
+      > div:last-child
+        display: none
+
+  nav
+    padding-left: $page-mobile-margin
+    padding-right: $page-mobile-margin
+
+    //Content
+    > div:nth-child(2)
+      //Liens
+      > div:first-child
+        bottom: 15rem
+        padding: $page-mobile-margin
+        background-color: $color-white
+
+      > div:last-child
+        > div:first-child
+          padding: 0 $page-mobile-margin
+
+        //Buttons
+        > div:last-child
+          position: fixed
+          bottom: 0
+          left: 0
+          right: 0
+          height: 15rem
+          display: flex
+          flex-direction: row
+          align-items: center
+          padding: 0 $page-mobile-margin
+          background-color: $color-white
+
+          > a:not(:last-child)
+            margin-right: 16px

@@ -1,0 +1,212 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details  du Bien Immobilier{% endblock %}
+{% block pageid %}offers-details-page{% endblock %}
+
+{% block body %}
+
+<main class="offer-details-page">
+
+
+<section id="carousel">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-sm-12 mx-auto">
+                <div id="carouselExampleNoRide" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% set isFirst = true %}
+                        {% for picture in offerdetails[0].getPictures() %}
+                            <div class="carousel-item {% if isFirst %}active{% endif %}">
+                                <img src="{{ picture.getPictureUrl() }}" class="d-block w-100" alt="...">
+                            </div>
+                            {% set isFirst = false %}
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleNoRide" data-bs-slide="prev">
+                        <span class="carousel-arrow carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleNoRide" data-bs-slide="next">
+                        <span class="carousel-arrow carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<section id="description-card">
+    <div class="container">
+        <div class="property-details">
+            {% for offerdetail in offerdetails %}
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="info">
+                            <h3>
+                                {{ offerdetail.getTitle() }}
+                                {% if offerdetail.type == 'sale' %}
+                                <span class="badge">Vente</span>
+                                {% elseif offerdetail.type == 'location' %}
+                                <span class="badge">Location</span>
+                                {% endif %}
+                            </h3>
+                            <p class="address"><i class="lni-map-marker"></i>{{ offerdetail.getLocation() }}</p>
+                            <br>
+                            <p>Ville : <span>{{ offerdetail.getCity() }}</span></p>
+                            <p>Code Postal : <span>{{ offerdetail.getPostalCode() }}</span></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-xs-12">
+                        <div class="details">
+                            <div class="details-listing">
+                                <i class="fa-solid fa-bed"></i>
+                                <p>Chambres</p>
+                                <h5>{{ offerdetail.getBedrooms() }}</h5>
+                            </div>
+                            <div class="details-listing">
+                                <i class="fa-solid fa-shower"></i>
+                                <p>Salle d'eau</p>
+                                <h5>{{ offerdetail.getBathrooms() }}</h5>
+                            </div>
+                            <div class="details-listing">
+                                <i class="fa-solid fa-expand"></i>
+                                <p>Surface (M²)</p>
+                                <h5>{{ offerdetail.getArea() }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-xs-12">
+                        <div class="others">
+                            <ul>
+                                <li><span>{{ offerdetail.getPrice() }}<i class="fa-solid fa-euro-sign"></i></span></li>
+                                <li><a class="bookmark" href="#"><i class="info-icons fa-regular fa-bookmark"></i></a></li>
+                                <li><a class="heart"  href="#"><i class="info-icons fa-regular fa-heart"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+<section id="about">
+    <div class="container about-ct">
+      <div class="row">
+      <img src="\assets\medias\pictures\contact-top-right-v3.png" style="max-height: 18vh">
+        <div class="section-heading text-center">
+          <h1 class="mb-3">Description du professionnel</h1>
+        </div>
+        <div class="about-content">
+          <div class="row separate">
+            <div class="col-md-7">
+              <div class="single-about-txt">
+                <h3>
+                     La réalisation de ces descriptions repose en grande partie sur la contribution des propriétaires de biens immobiliers et des agents.
+                </h3>
+                {% for offerdetail in offerdetails %}
+                <p>
+                    {{ offerdetail.getDescription() }}
+                </p>
+                {% endfor %}
+              <div class="row">
+                <div class="col-sm-4">
+                    <div class="single-about-add-info">
+                        <h3>Agencex</h3>
+                        <p>13 Place Bellecours</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="single-about-add-info">
+                        <h3>email</h3>
+                        <a href="#"><p>UNest</p></a>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="single-about-add-info">
+                      <h3>Site</h3>
+                      <p><a href="https://urban-nest.campusnumerique.seventeeninfo.fr/">UrbanNest</a></p>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="col-md-4">
+        <div class="single-about-img">
+          <img src="\assets\medias\illustrations\offerseedetails\services-image-03.jpg" alt="image of someone seraching a house in a navigator">
+        </div>
+      </div>
+        <img src="\assets\medias\pictures\contact-bottom-right-v3.png" style="max-height: 18vh">
+      </div>
+    </div>
+  </section>
+
+
+
+
+<section id="contact">
+    <div class="container col-md-7 col-sm-12">
+        <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <img class="img-fluid rounded w-100" src="\assets\medias\illustrations\offerseedetails\contact-dec-v3.png" style="max-width: 70%" alt="">
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <div class="mb-4">
+                        <h1 class="mb-3">Contactez nos agents</h1>
+                        <p>Que vous ayez des questions sur nos propriétés ou que vous ayez besoin d’aide pour votre parcours immobilier, nos agents dédiés sont là pour vous aider</p>
+                    </div>
+                    <div class="contact-btn col-sm-12">
+                        <a href="" class="btn btn-primary btn-sm py-2 px-3 me-2"><i class="fa fa-phone-alt me-2"></i><span>Appelez-Nous</span></a>
+                        <a href="{{ path('app_announcements_postule', {id: offerdetails.0.id}) }}" class="btn btn-dark btn-sm py-2 px-3"><i class="fa fa-calendar-alt me-2"></i><span>Completez votre dossier en ligne</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+   
+    <section class="gallery-resume">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-12 pb-40 header-text text-center  gallery-title">
+                    <h1 class="pb-10">Gallerie d'image de la propriété</h1>
+                    <p>
+                        Photos validées par l'agence
+                    </p>
+                </div>
+            </div>							
+            <div class="row">
+                {% for picture in offerdetails[0].getPictures() %}
+                    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                        <img
+                            src="{{ picture.getPictureUrl() }}"
+                            class="w-100 shadow-1-strong rounded mb-4"
+                            alt="Property Image"
+                        />
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+        </div>	
+    </section>
+<main>
+ 
+{% endblock %}

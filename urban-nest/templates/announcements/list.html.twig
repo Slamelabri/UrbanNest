@@ -1,0 +1,298 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos offres{% endblock %}
+{% block pageid %}offers-list-page{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="offers-list-section">
+            <div class="mb-5">
+                <h2>Nos annonces</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('app_home') }}">Accueil</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        Annonces
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <span>Resultat du filtre</span>
+                    </li>
+                </ol>
+            </div>
+            <header>
+                <div class="filter-recap">
+                    <div>
+                        <p title="Localisation : {{ query.postalCode }} {{ query.city }}">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 9.00002V15C22 17.5 21.5 19.25 20.38 20.38L14 14L21.73 6.27002C21.91 7.06002 22 7.96002 22 9.00002Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21.73 6.27L6.26999 21.73C3.25999 21.04 2 18.96 2 15V9C2 4 4 2 9 2H15C18.96 2 21.04 3.26 21.73 6.27Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M20.38 20.38C19.25 21.5 17.5 22 15 22H9.00003C7.96003 22 7.06002 21.91 6.27002 21.73L14 14L20.38 20.38Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6.24002 7.97997C6.92002 5.04997 11.32 5.04997 12 7.97997C12.39 9.69997 11.31 11.16 10.36 12.06C9.67001 12.72 8.58003 12.72 7.88003 12.06C6.93003 11.16 5.84002 9.69997 6.24002 7.97997Z" stroke="#292D32" stroke-width="1.5"/>
+                                <path d="M9.0946 8.69995H9.10359" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            {{ query.postalCode }} {{ query.city }}
+                        </p>
+                        {% if query.type is defined %}
+                            <p title="{{ query.type }}">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21.67 14.3L21.27 19.3C21.12 20.83 21 22 18.29 22H5.71001C3.00001 22 2.88001 20.83 2.73001 19.3L2.33001 14.3C2.25001 13.47 2.51001 12.7 2.98001 12.11C2.99001 12.1 2.99001 12.1 3.00001 12.09C3.55001 11.42 4.38001 11 5.31001 11H18.69C19.62 11 20.44 11.42 20.98 12.07C20.99 12.08 21 12.09 21 12.1C21.49 12.69 21.76 13.46 21.67 14.3Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10"/>
+                                    <path d="M3.5 11.43V6.28003C3.5 2.88003 4.35 2.03003 7.75 2.03003H9.02C10.29 2.03003 10.58 2.41003 11.06 3.05003L12.33 4.75003C12.65 5.17003 12.84 5.43003 13.69 5.43003H16.24C19.64 5.43003 20.49 6.28003 20.49 9.68003V11.47" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9.42993 17H14.5699" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                {% if query.type == 'location' %}
+                                    Location
+                                {% elseif query.type == 'sale' %}
+                                    Achat
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                        {% if query.property.type is defined %}
+                            <p title="Type de bien">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.02 2.84004L3.63 7.04004C2.73 7.74004 2 9.23004 2 10.36V17.77C2 20.09 3.89 21.99 6.21 21.99H17.79C20.11 21.99 22 20.09 22 17.78V10.5C22 9.29004 21.19 7.74004 20.2 7.05004L14.02 2.72004C12.62 1.74004 10.37 1.79004 9.02 2.84004Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 17.99V14.99" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                {% if query.property.type == 'appartment' %}
+                                    Appartement
+                                {% elseif query.property.type == 'house' %}
+                                    Maison
+                                {% elseif query.property.type == 'commercial' %}
+                                    Local commercial
+                                {% else %}
+                                    Tous
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-secondary un-modal-show" data-modal="modalFilter" id="btnEditFilter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.41 20.79L12.0001 21.7C10.6901 22.51 8.87006 21.6 8.87006 19.98V14.63C8.87006 13.92 8.47006 13.01 8.06006 12.51L4.22003 8.47C3.71003 7.96 3.31006 7.06001 3.31006 6.45001V4.13C3.31006 2.92 4.22008 2.01001 5.33008 2.01001H18.67C19.78 2.01001 20.6901 2.92 20.6901 4.03V6.25C20.6901 7.06 20.1801 8.07001 19.6801 8.57001" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17.0799 11.89L13.5399 15.43C13.3999 15.57 13.2699 15.83 13.2399 16.02L13.0499 17.37C12.9799 17.86 13.3199 18.2 13.8099 18.13L15.1599 17.94C15.3499 17.91 15.6199 17.78 15.7499 17.64L19.2899 14.1C19.8999 13.49 20.1899 12.78 19.2899 11.88C18.3999 10.99 17.6899 11.28 17.0799 11.89Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16.58 12.39C16.88 13.47 17.7199 14.31 18.7999 14.61" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Modifier les filtres
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <select class="form-select" id="selectSortBy">
+                        <option value="asc">Prix croissant</option>
+                        <option value="desc">Prix décroissant</option>
+                    </select>
+                </div>
+            </header>
+            {% if announces %}
+                <div id="offers-list-container">
+                {% for announce in announces %}
+                    <article data-bathrooms="{{ announce.bathrooms }}" data-bedrooms="{{ announce.bedrooms }}" data-area="{{ announce.area }}" data-price="{{ announce.price }}">
+                        <div>
+                            {% if announce.type == 'location' %}<span class="badge" data-type="location">Location</span>{% else %}<span class="badge" data-type="sale">Achat</span>{% endif %}
+                            <img src="{{ announce.defaultPicture }}" alt="Photo de l'annonce {{ announce.title }}">
+                        </div>
+                        <div>
+                            <h3>{{ announce.price }} € {% if announce.type == 'location' %}<span>/ Mois</span>{% endif %}</h3>
+                            <p>{{ announce.location }}, {{ announce.postalCode }} {{ announce.city }}</p>
+                        </div>
+                        <div class="hsa-content-spe">
+                            {# Colonne Gauche #}
+                            <div>
+                                {# Salles de bain #}
+                                <p title="{{ announce.bathrooms }} Salles de bain">
+                                    {# Icon #}
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                                        <path d="m20.25,4.633c.635-.635.888-1.536.679-2.413-.206-.861-.828-1.539-1.663-1.812-.54-.177-1.102-.287-1.669-.329-2.71-.198-6.246-.103-7.905,1.426-.462-.389-1.98-1.504-4.275-1.504-1.884,0-3.417,1.533-3.417,3.417v20.083c0,.276.224.5.5.5s.5-.224.5-.5V3.417c0-1.333,1.084-2.417,2.417-2.417,1.967,0,3.289.983,3.637,1.275-1.102,1.815-1.154,4.902-.975,7.322.042.566.153,1.128.329,1.669.273.835.951,1.457,1.812,1.663.202.048.406.072.607.072.671,0,1.317-.263,1.805-.751l7.617-7.617Zm-9.797,7.323c-.529-.127-.928-.491-1.094-1.001-.151-.464-.247-.946-.283-1.433-.267-3.609.166-6.178,1.217-7.229.849-.849,2.685-1.294,5.26-1.294.615,0,1.273.025,1.97.077.487.035.968.131,1.432.282.51.166.875.565,1.001,1.094.128.536-.026,1.087-.413,1.474l-7.617,7.617c-.387.387-.936.54-1.473.413Zm7.547,3.044c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm4-4c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm-4,8c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm4-4c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm0,4c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm0,4c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm-4,0c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm-4-4c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm4-8c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm3-5c.552,0,1,.448,1,1s-.448,1-1,1-1-.448-1-1,.448-1,1-1Zm-7,9c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Zm0,8c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Z"/>
+                                    </svg>
+
+                                    {{ announce.bathrooms }}
+                                </p>
+                                {# Surface #}
+                                <p title="Surface de {{ announce.area }} m2">
+                                    {# Icon #}
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                                        <path d="M19.5,0H4.5C2.02,0,0,2.02,0,4.5v15c0,2.48,2.02,4.5,4.5,4.5h15c2.48,0,4.5-2.02,4.5-4.5V4.5c0-2.48-2.02-4.5-4.5-4.5Zm3.5,14.29l-8.71,8.71h-5.59l14.29-14.29v5.59ZM1,9.21L9.21,1h6.09L1,15.29v-6.09ZM4.5,1h3.29L1,7.79v-3.29c0-1.93,1.57-3.5,3.5-3.5ZM1,16.71L16.71,1h2.79c.78,0,1.51,.26,2.09,.7L1.7,21.59c-.44-.58-.7-1.31-.7-2.09v-2.79Zm1.41,5.59L22.3,2.4c.44,.58,.7,1.31,.7,2.1v2.79L7.29,23h-2.79c-.78,0-1.51-.26-2.09-.7Zm17.09,.7h-3.79l7.29-7.29v3.79c0,1.93-1.57,3.5-3.5,3.5Z"/>
+                                    </svg>
+
+                                    {{ announce.area }} m2
+                                </p>
+                            </div>
+                            {# Colonne Droite #}
+                            <div>
+                                {# Chambres #}
+                                <p title="{{ announce.bedrooms }} Chambres">
+                                    {# Icon #}
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+                                        <path d="M19.5,2H4.5C2.019,2,0,4.019,0,6.5v15c0,.276,.224,.5,.5,.5s.5-.224,.5-.5v-2.5H23v2.5c0,.276,.224,.5,.5,.5s.5-.224,.5-.5V6.5c0-2.481-2.019-4.5-4.5-4.5ZM4.5,3h15c1.93,0,3.5,1.57,3.5,3.5v7.5h-2v-1.5c0-1.93-1.57-3.5-3.5-3.5h-2.5c-1.272,0-2.387,.682-3,1.699-.613-1.017-1.728-1.699-3-1.699h-2.5c-1.93,0-3.5,1.57-3.5,3.5v1.5H1V6.5c0-1.93,1.57-3.5,3.5-3.5ZM12.5,14v-1.5c0-1.378,1.121-2.5,2.5-2.5h2.5c1.379,0,2.5,1.122,2.5,2.5v1.5h-7.5Zm-8.5,0v-1.5c0-1.378,1.122-2.5,2.5-2.5h2.5c1.378,0,2.5,1.122,2.5,2.5v1.5H4Zm-3,4v-3H23v3H1Z"/>
+                                    </svg>
+
+                                    {{ announce.bedrooms }}
+                                </p>
+                                {# Type de bien #}
+                                {% if announce.propertyType == 'house' %}
+                                    <p>
+                                        {# Icon #}
+                                        <?xml version="1.0" encoding="UTF-8"?>
+                                        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M19,24H5c-2.757,0-5-2.243-5-5V9.724c0-1.665,.824-3.215,2.204-4.145L9.203,.855c1.699-1.146,3.895-1.146,5.594,0l7,4.724c1.379,.93,2.203,2.479,2.203,4.145v9.276c0,2.757-2.243,5-5,5ZM12,1.997c-.584,0-1.168,.172-1.678,.517L3.322,7.237c-.828,.558-1.322,1.487-1.322,2.486v9.276c0,1.654,1.346,3,3,3h14c1.654,0,3-1.346,3-3V9.724c0-.999-.494-1.929-1.321-2.486L13.678,2.514c-.51-.345-1.094-.517-1.678-.517Z"/></svg>
+
+                                        Maison
+                                    </p>
+                                {% elseif announce.propertyType == 'apartment' %}
+                                    <p>
+                                        <?xml version="1.0" encoding="UTF-8"?>
+                                        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M16,13.5c0,.276-.224,.5-.5,.5h-1c-.276,0-.5-.224-.5-.5s.224-.5,.5-.5h1c.276,0,.5,.224,.5,.5Zm3.5-.5h-1c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h1c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Zm-4,4h-1c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h1c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Zm4,0h-1c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h1c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5ZM15.5,5h-1c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h1c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Zm4,0h-1c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h1c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Zm-4,4h-1c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h1c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Zm4,0h-1c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h1c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Zm4.5-4.5v15c0,2.481-2.019,4.5-4.5,4.5H4.5c-2.481,0-4.5-2.019-4.5-4.5V8.852c0-1.216,.502-2.397,1.378-3.241l1.694-1.631c1.361-1.312,3.494-1.312,4.855,0l1.694,1.631c.135,.13,.262,.269,.378,.414v-1.524c0-2.481,2.019-4.5,4.5-4.5h5c2.481,0,4.5,2.019,4.5,4.5Zm-14,4.352c0-.946-.391-1.865-1.072-2.521l-1.694-1.631c-.486-.469-1.11-.703-1.734-.703s-1.248,.234-1.734,.703l-1.694,1.632c-.681,.656-1.072,1.575-1.072,2.521v10.648c0,1.93,1.57,3.5,3.5,3.5h5.5V8.852Zm13-4.352c0-1.93-1.57-3.5-3.5-3.5h-5c-1.93,0-3.5,1.57-3.5,3.5V23h8.5c1.93,0,3.5-1.57,3.5-3.5V4.5ZM6.5,13h-2c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h2c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Zm0-4h-2c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h2c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Zm0,8h-2c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h2c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5Z"/></svg>
+                                        Appartement
+                                    </p>
+                                {% elseif announce.propertyType == 'commercial' %}
+                                    <p>
+                                        <?xml version="1.0" encoding="UTF-8"?>
+                                        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M19.5,4h-1.551c-.252-2.244-2.139-4-4.449-4h-3c-2.31,0-4.197,1.756-4.449,4h-1.551C2.019,4,0,6.019,0,8.5v11c0,2.481,2.019,4.5,4.5,4.5h15c2.481,0,4.5-2.019,4.5-4.5V8.5c0-2.481-2.019-4.5-4.5-4.5ZM10.5,1h3c1.758,0,3.204,1.308,3.449,3H7.051c.245-1.692,1.691-3,3.449-3Zm12.5,18.5c0,1.93-1.57,3.5-3.5,3.5h-1.5V7.5c0-.276-.224-.5-.5-.5s-.5,.224-.5,.5v15.5H7V7.5c0-.276-.224-.5-.5-.5s-.5,.224-.5,.5v15.5h-1.5c-1.93,0-3.5-1.57-3.5-3.5V8.5c0-1.93,1.57-3.5,3.5-3.5h15c1.93,0,3.5,1.57,3.5,3.5v11Z"/></svg>
+                                        Local Commercial
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div>
+                            <a href="{{ path('app_offerseedetails', {id: announce.id}) }}" class="btn btn-blue">Voir les détails</a>
+                        </div>
+                    </article>
+                {% endfor %}
+                </div>
+            {% else %}
+                <div class="filter-noresult">
+                    <div>
+                        <img src="https://res.cloudinary.com/seventeeninfo-cn/image/upload/v1702054563/urban-nest/illustrations/d3qqnvcv7gn3iq0uetuh.svg" alt="Illustration de personnes avec des jumelless et longues vues.">
+                    </div>
+                    <div>
+                        <h2>Aucun resultat</h2>
+                        <p>Aucune offre ne correspond a votre rechercher, essayer d'elargir ou modifier vos criteres de recherche.</p>
+                        <a href="#" class="btn btn-primary">Modifier mes criteres</a>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+    {# begin::Modal Filter #}
+    <div id="modalFilter" class="un-modal">
+        <div class="un-modal-header">
+            <div>
+                <div>
+                    <h2>Filtrer</h2>
+                    <p>Affinez vos critères pour une meilleure sélection</p>
+                </div>
+                <div>
+                    <p>Nombre d'annonces : <span id="filterResultCounter">150</span></p>
+                </div>
+            </div>
+            <div>
+                <button class="un-modal-btn-close" title="Fermer la modal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16998 14.83L14.83 9.17004" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.83 14.83L9.16998 9.17004" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12 col-lg-6 mb-5 mb-lg-0">
+                {# Nombre de salle de bain #}
+                <div class="mb-5">
+                    <div>
+                        <h3>Nombre de Salle de bain</h3>
+                        <p>Sélectionnez le nombre de salles de bain souhaité pour affiner votre recherche.</p>
+                    </div>
+                    <div>
+                        <div class="row mb-5">
+                            <div class="col-6">
+                                <label class="form-label" for="filter-bathroom-input-max">Minimum</label>
+                                <input type="number" class="form-control" placeholder="1" value="1" id="filter-bathroom-input-min" data-range-container="filter-bathroom-range">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="filter-bathroom-input-max">Maximum</label>
+                                <input type="number" class="form-control" placeholder="50" value="50" id="filter-bathroom-input-max" data-range-container="filter-bathroom-range">
+                            </div>
+                        </div>
+                        <div class="form-range-min-max" id="filter-bathroom-range">
+                            <div>
+                                <div></div>
+                            </div>
+                            <div>
+                                <input type="range" min="1" max="50" value="1" step="1" id="filter-bathroom-range-min">
+                                <input type="range" min="1" max="50" value="50" step="1" id="filter-bathroom-range-max">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# Nombre de chambres #}
+                <div>
+                    <div>
+                        <h3>Nombre de Chambres</h3>
+                        <p>Sélectionnez le nombre de chambres désiré pour affiner votre recherche. Filtrez les annonces en fonction de vos besoins en termes d'espace personnel.</p>
+                    </div>
+                    <div>
+                        <div class="row mb-5">
+                            <div class="col-6">
+                                <label class="form-label" for="filter-bathroom-input-min">Minimum</label>
+                                <input type="number" class="form-control" placeholder="1" value="1" id="filter-bedroom-input-min" data-range-container="filter-bedroom-range">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="filter-bedroom-input-max">Maximum</label>
+                                <input type="number" class="form-control" placeholder="50" value="50" id="filter-bedroom-input-max" data-range-container="filter-bedroom-range">
+                            </div>
+                        </div>
+                        <div class="form-range-min-max" id="filter-bedroom-range">
+                            <div>
+                                <div></div>
+                            </div>
+                            <div>
+                                <input type="range" min="1" max="50" value="1" step="1" id="filter-bedroom-range-min">
+                                <input type="range" min="1" max="50" value="50" step="1" id="filter-bedroom-range-max">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                {# Surface #}
+                <div class="mb-5">
+                    <div>
+                        <h3>Surface</h3>
+                        <p>Déterminez la superficie recherchée pour votre logement. Utilisez ce filtre pour spécifier la taille ou l'étendue de la propriété que vous recherchez. Choisissez une plage de surface pour affiner vos résultats et trouver des annonces correspondant à vos besoins d'espace.</p>
+                    </div>
+                    <div>
+                        <div class="row mb-5">
+                            <div class="col-6">
+                                <label class="form-label" for="filter-area-input-min">Minimum</label>
+                                <input type="number" class="form-control" placeholder="10" value="10" id="filter-area-input-min" data-range-container="filter-area-range">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="filter-area-input-max">Maximum</label>
+                                <input type="number" class="form-control" placeholder="1000" value="1000" id="filter-area-input-max" data-range-container="filter-area-range">
+                            </div>
+                        </div>
+                        <div class="form-range-min-max" id="filter-area-range">
+                            <div>
+                                <div></div>
+                            </div>
+                            <div>
+                                <input type="range" min="10" max="1000" step="10" value="10" id="filter-area-range-min">
+                                <input type="range" min="10" max="1000" step="10" value="1000" id="filter-area-range-max">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary" id="btnFilter">Valider</button>
+        </div>
+    </div>
+    {# end::Modal filter #}
+{% endblock %}
+{% block javascripts %}
+<script src="/assets/js/pages/announcements-list.js"></script>
+{% endblock %}

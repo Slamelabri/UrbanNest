@@ -1,0 +1,180 @@
+#offers-list-page
+  padding-top: 5rem
+
+  header
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 4rem
+
+  .filter-recap
+    display: flex
+    flex-direction: row
+    align-items: center
+
+    > div:first-child
+      display: flex
+      flex-direction: row
+      align-items: center
+      margin-right: 16px
+
+      > p
+        display: flex
+        flex-direction: row
+        align-items: center
+        margin: 0
+
+        svg
+          margin-right: 8px
+          height: 24px
+          width: 24px
+
+        &:not(:last-child)
+          margin-right: 16px
+
+  .filter-noresult
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    //Illustration
+    > div:first-child
+      margin-bottom: 2.5rem
+      img
+        height: 25vh
+
+    //Message
+    > div:last-child
+      text-align: center
+
+      p
+        color: rgba($color-primary, .6)
+
+  #offers-list-section
+    padding: 80px $page-margin
+
+  #offers-list-container
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    grid-template-rows: 1fr
+    grid-column-gap: 50px
+    grid-row-gap: 50px
+
+    //Annonces
+    article
+      background-color: $color-white
+      color: $color-primary
+      padding: 24px
+      border-radius: 24px
+      min-width: 400px
+      min-height: 400px
+      box-shadow: 0px 10px 25px 1px rgba($color-primary, .1)
+
+      &.announce-hide
+        display: none
+
+      > div:first-child
+        position: relative
+        margin-bottom: 2em
+
+        .badge[data-type]
+          position: absolute
+          top: 10px
+          left: 10px
+
+          &[data-type="sale"]
+            background-color: $color-primary-hover
+          &[data-type="location"]
+            background-color: $color-primary
+
+        img
+          height: 250px
+          width: 100%
+          object-fit: cover
+          object-position: center
+          border-radius: 16px
+
+      > div:nth-child(2)
+        h3
+          margin-bottom: 2px
+
+          > span
+            font-size: 16px
+            font-weight: 300
+        p
+          margin-top: 0
+
+    .hsa-content-spe
+      display: flex
+      flex-direction: row
+
+      //Colonnes
+      > div
+        width: 50%
+        display: flex
+        flex-direction: column
+        align-items: start
+
+        //Specification
+        > p
+          width: 100%
+          padding-top: 4px
+          padding-bottom: 4px
+          display: flex
+          flex-direction: row
+          justify-content: start
+          align-items: center
+          font-size: 14px
+
+          svg
+            height: 18px
+            width: 18px
+            margin-right: 14px
+
+            path
+              stroke: $color-primary
+
+//Responsive
+@media screen and (max-width: 1440px)
+  #offers-list-page
+    #offers-list-container
+      grid-template-columns: repeat(2, 1fr)
+
+@media screen and (max-width: 1220px)
+  #offers-list-page
+    header
+      flex-direction: column
+      align-items: start
+
+    #offers-list-section
+      padding: 80px $page-mobile-margin
+
+@media screen and (max-width: 960px)
+  #offers-list-page
+    header .filter-recap
+      flex-direction: column
+      align-items: start
+      margin-bottom: 1rem
+
+      > div:first-child
+        margin-bottom: 1rem
+    #offers-list-container
+      grid-template-columns: 1fr
+
+      article
+        min-width: auto
+
+@media screen and (max-width: 430px)
+  #offers-list-page
+    header .filter-recap > div:first-child
+      flex-direction: column
+      align-items: start
+
+      > p:not(:last-child)
+        margin-bottom: 16px
+
+@media screen and (max-width: 360px)
+  #offers-list-page #offers-list-container article .hsa-content-spe
+    flex-direction: column

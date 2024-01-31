@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+{% block pageid %}register-page{% endblock %}
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <main>
+        <section class="div_flex">
+            <div class="div_blanche">
+                <div class="div_image">
+                    <img src="/assets/medias/logo/svg/blue/favicon.svg" class="logo_urban_nest">
+                </div>
+                {{ form_errors(registrationForm) }}
+                <div class="formulaire">
+                    {{ form_start(registrationForm) }}
+                        <div class="form-group">
+                            {{ form_label(registrationForm.surname, 'Nom de famille', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.surname, {'attr': {'class': 'custom-text-input'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(registrationForm.firstName, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.firstName, {'attr': {'class': 'custom-text-input'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'custom-text-input'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(registrationForm.password.first, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.password.first, {'attr': {'class': 'custom-text-input'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(registrationForm.password.second, 'Confirmation du mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.password.second, {'attr': {'class': 'custom-text-input'}}) }}
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <div class="checkbox_cg">
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                            </div>
+                            {{ form_label(registrationForm.agreeTerms, "J'accepte les conditions Générales d'utilisation et consent à retrouver mes données sur des sites illégaux à des fins de profits tierces.", {'label_attr': {'class': 'form-label'}}) }}
+                        </div>
+                        <div class="div_bouton">
+                            <button type="submit" class="btn_inscrire">S'inscrire</button>
+                        </div>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+            <div class="div_bleu">
+                <div class="div_image2">
+                    <img src="/assets/medias/logo/svg/white/compact.svg" class="logo_un_blanc">
+                </div>
+                <div class="div_titre">
+                    <span>
+                        Enregistrez-vous pour des offres <b>exclusives</b> et un accès <b>illimité</b> 👋
+                    </span>
+                </div>
+                <div class="div_texte">
+                    <span>
+                        Rejoignez-nous dès maintenant pour bénéficier d'offres exclusives sur des biens immobiliers uniques. Chaque jour, de nouvelles opportunités immobilières s'offrent à vous. L'inscription vous ouvre les portes vers un accès illimité à nos annonces de qualité. Ne manquez pas cette opportunité et rejoignez notre communauté dès aujourd'hui !
+                    </span>
+                </div>
+                <div class="la_div_truc">
+                    <div class="div_rond_rouge">
+                    </div>
+                    <div class="div_info">
+                        <div class="div_texte_info1">
+                            <i class="fa-solid fa-house-chimney-window icone"></i>
+                            <span class="span_titre"><strong>Postulez en quelques clics</strong></span>
+                            <p class="blabla">Postulez à des offres immobilières en un clin d'œil depuis votre compte. Ne manquez aucune occasion de trouver votre nouveau chez vous !</p>
+                        </div>
+                        <div class="div_texte_info2">
+                            <i class="fa-solid fa-house-chimney-window icone"></i>
+                            <span class="span_titre"><strong>Postulez en quelques clics</strong></span>
+                            <p class="blabla">Postulez à des offres immobilières en un clin d'œil depuis votre compte. Ne manquez aucune occasion de trouver votre nouveau chez vous !</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="div_linear_top">
+                    <img src="assets/medias/illustrations/abstract/linear-top-left.png">
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

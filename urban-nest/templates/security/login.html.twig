@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+{% block pageid %}login-page{% endblock %}
+
+{% block body %}
+<main>
+    <section class="div_flex">
+        <div class="div_blanche">
+            <div class="div_image">
+                <img src="/assets/medias/logo/svg/blue/favicon.svg" class="logo_urban_nest">
+            </div>
+            <div class="formulaire">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    {% if app.user %}
+                        <div class="mb-3">
+                            Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label for="inputEmail" class="form-label2">Email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control custom-text-input input_login" autocomplete="email" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="form-label2">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control custom-text-input input_login" autocomplete="current-password" required>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token"
+                        value="{{ csrf_token('authenticate') }}"
+                    >
+
+                    <a href="#" class="oubli_mdp">Oups ! Avez-vous égaré votre mot de passe ? 🙈</a>
+
+                    <div class="div_bouton2">
+                        <button class="btn btn-lg btn-primary btn_inscrire" type="submit">
+                            Connexion
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {# DIV BLEUE #}
+
+        <div class="div_bleu">
+            <div class="div_image2">
+                <img src="/assets/medias/logo/svg/white/compact.svg" class="logo_un_blanc">
+            </div>
+            <div class="div_titre">
+                <span>
+                    Heureux de vous <b>revoir</b> - Prêt pour de nouvelles <b>Opportunités</b> ? 😎
+                </span>
+            </div>
+            <div class="div_texte">
+                <span>
+                    Chaque jour sur UrbanNest, des dizaines d'annonces sont publiées et attirent des centaines de visiteurs. Ne perdez plus de temps, connectez-vous et soyez le premier à réserver la maison de vos rêves.
+                </span>
+            </div>
+            <div class="la_div_truc">
+                <div class="div_rond_rouge">
+                </div>
+                <div class="div_info">
+                    <div class="div_texte_info1">
+                        <i class="fa-solid fa-house-chimney-window icone"></i>
+                        <span class="span_titre"><strong>Postulez en quelques clics</strong></span>
+                        <p class="blabla">Postulez à des offres immobilières en un clin d'œil depuis votre compte. Ne manquez aucune occasion de trouver votre nouveau chez vous !</p>
+                    </div>
+                    <div class="div_texte_info2">
+                        <i class="fa-solid fa-house-chimney-window icone"></i>
+                        <span class="span_titre"><strong>Postulez en quelques clics</strong></span>
+                        <p class="blabla">Postulez à des offres immobilières en un clin d'œil depuis votre compte. Ne manquez aucune occasion de trouver votre nouveau chez vous !</p>
+                    </div>
+                </div>
+            </div>
+            <div class="div_linear_top">
+                <img src="assets/medias/illustrations/abstract/linear-top-left.png">
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,76 @@
+.stepper
+  > div:not(.visible)
+    display: none
+
+.stepper-nav-btns
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+
+.stepper-container
+  &.step-end
+    .stepper-not-end
+      display: none
+  &:not(.step-end)
+    .stepper-end
+      display: none
+  &.step-first
+    .stepper-not-first
+      display: none
+
+.stepper-nav-vertical ul
+  display: flex
+  flex-direction: column
+  list-style-type: none
+  padding: 0
+  margin: 0
+
+  > li:not(:last-child)
+    margin-bottom: 16px
+
+  button
+    display: flex
+    flex-direction: row
+    align-items: center
+    background-color: transparent
+    border: none
+
+    > span
+      display: flex
+      flex-direction: row
+      justify-content: center
+      align-items: center
+      height: 48px
+      width: 48px
+      border-radius: 8px
+      margin-right: 16px
+      font-weight: bold
+      color: $color-primary-hover
+      border: 1px solid rgba($color-primary-hover, .1)
+
+    &.active
+      > span
+        background-color: $color-primary-hover
+        color: $color-white
+
+    &.past
+      opacity: .5
+      > span
+        background-color: rgba(green, .05)
+        border-color: transparent
+        color: green
+
+@media screen and (max-width: 1570px)
+  .stepper-nav-vertical ul
+    flex-direction: row
+    flex-wrap: wrap
+
+    > li:not(:last-child)
+      margin-right: 8px
+
+@media screen and (max-width: 350px)
+  .stepper-nav-btns
+    flex-direction: column
+
+    > div:not(:last-child)
+      margin-bottom: 16px
